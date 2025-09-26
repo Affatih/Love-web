@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Untuk Kamu ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(270deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+      background-size: 800% 800%;
+      animation: gradientMove 15s ease infinite;
+      text-align: center;
+      color: #fff;
+      overflow: hidden;
+    }
+    @keyframes gradientMove {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    .container {
+      padding: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+    img {
+      width: 180px;
+      height: auto;
+      margin: 10px auto;
+      display: block;
+      animation: bounce 2s infinite;
+      transition: all 1s ease-in-out;
+    }
+    h1 {
+      font-size: 1.8em;
+      margin: 10px 0;
+      transition: all 1s ease-in-out;
+    }
+    .top {
+      transform: translateY(-280px);
+      font-size: 1.5em;
+    }
+    .top-boneka {
+      transform: translateY(-100px);
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      background-color: #ff4e50;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #fc913a;
+    }
+    .hidden {
+      display: none;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    @keyframes bounce {
+      0%, 100% {transform: translateY(0);}
+      50% {transform: translateY(-15px);}
+    }
+    .fadeOut {
+      opacity: 0;
+      transform: translateY(-30px);
+      transition: all 0.8s ease;
+    }
+    .slider-container {
+      margin-top: 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+    input[type=range] {
+      width: 80%;
+      margin: 20px 0;
+    }
+    .notes {
+      font-size: 1.3em;
+      line-height: 1.6em;
+      margin-top: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Awal -->
+    <img id="bonekaAwal" src="img/3fe7ad77fad2caee988ce07f833ae049-removebg-preview.png" alt="Boneka Gemas">
+    <h1 id="title">Apa kabar hari ini sayang? 💕</h1>
+    <button id="btnBuka" onclick="showChoices()">Buka</button>
+    
+    <!-- Pilihan mood -->
+    <div id="choices" class="hidden">
+      <button onclick="selectMood('Happy 😊')">Happy 😊</button>
+      <button onclick="selectMood('Capek 😴')">Capek 😴</button>
+      <button onclick="selectMood('Capek pool 😫')">Capek pool 😫</button>
+    </div>
+
+    <!-- Slider mood -->
+    <div id="moodSection" class="hidden">
+      <img id="bonekaMood" src="img/3fe7ad77fad2caee988ce07f833ae049-removebg-preview.png" alt="Boneka Mood">
+      <h2 id="moodText"></h2>
+      <div class="slider-container">
+        <input type="range" id="moodRange" min="1" max="100" value="50" oninput="updateSliderValue()">
+        <p id="sliderValue">Tingkat kabar hari ini: 50%</p>
+      </div>
+      <button onclick="nextStep()">Next </button>
+    </div>
+
+    <!-- Notes -->
+    <div id="notesSection" class="hidden">
+      <img src="img/3fe7ad77fad2caee988ce07f833ae049-removebg-preview.png" alt="Boneka Notes">
+      <p class="notes">
+        Senang bisa mendengar apapun kabarmu hari ini... <br>
+        semoga hari-harimu selajutnya bisa lebih baik dan menyenangkan,<br>
+        Semangat terus dan jadi lebih baik buat kedepannya! 💕
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function showChoices() {
+      document.getElementById('btnBuka').classList.add('fadeOut');
+      setTimeout(() => {
+        document.getElementById('btnBuka').classList.add('hidden');
+        document.getElementById('title').classList.add('top');
+        document.getElementById('bonekaAwal').classList.add('top-boneka'); // boneka ikut ke atas
+        document.getElementById('choices').classList.remove('hidden');
+      }, 800);
+    }
+
+    function selectMood(mood) {
+      // hilangkan title, choices, boneka awal
+      document.getElementById('title').classList.add('fadeOut');
+      document.getElementById('choices').classList.add('fadeOut');
+      document.getElementById('bonekaAwal').classList.add('fadeOut');
+
+      setTimeout(() => {
+        document.getElementById('title').classList.add('hidden');
+        document.getElementById('choices').classList.add('hidden');
+        document.getElementById('bonekaAwal').classList.add('hidden');
+
+        // tampilkan mood section
+        document.getElementById('moodSection').classList.remove('hidden');
+        document.getElementById('moodText').innerText = mood;
+      }, 800);
+    }
+
+    function updateSliderValue() {
+      let val = document.getElementById('moodRange').value;
+      document.getElementById('sliderValue').innerText = `Tingkat kabar hari ini: ${val}%`;
+    }
+
+    function nextStep() {
+      document.getElementById('moodSection').classList.add('fadeOut');
+      setTimeout(() => {
+        document.getElementById('moodSection').classList.add('hidden');
+        document.getElementById('notesSection').classList.remove('hidden');
+      }, 800);
+    }
+  </script>
+</body>
+</html>
